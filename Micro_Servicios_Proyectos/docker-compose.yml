@@ -1,0 +1,34 @@
+version: '3.7'
+services:
+  microserviciosproyectos01:
+    container_name: microserviciosproyectos01
+    image: microserviciosproyectos:v1
+    build:
+      context: .
+    ports: 
+      - "7000"
+    networks: 
+      - proyectos-app
+
+  microserviciosproyectos02:
+    container_name:  microserviciosproyectos02
+    image:  microserviciosproyectos:v2
+    build:
+      context: .
+    ports: 
+      - "7000"
+    networks: 
+      - proyectos-app
+  balanceador-cargas:
+    container_name: balanceador-cargas
+    image: balanceador-cargas:v1
+    build:
+      context: ./balanceador
+    ports: 
+      - "7000:80"
+    networks: 
+      - proyectos-app
+
+
+networks:
+ proyectos-app:
